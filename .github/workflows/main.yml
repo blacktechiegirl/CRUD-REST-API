@@ -20,9 +20,6 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    - name: Run Super-Linter
-      uses: github/super-linter@v3
-
     - uses: actions/cache@v2
       with:
         path: '**/node_modules'
@@ -35,6 +32,9 @@ jobs:
 
     - name: Install dependencies
       run: npm install
+
+    - name: Run Super-Linter
+      uses: github/super-linter@v3
 
     - name: serverless deploy
       uses: serverless/github-action@master
