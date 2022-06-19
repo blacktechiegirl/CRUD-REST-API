@@ -33,8 +33,8 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Run Super-Linter
-      uses: github/super-linter@v3.17.1
+    # - name: Run Super-Linter
+    #   uses: github/super-linter@v3.17.1
 
     - name: serverless deploy
       uses: serverless/github-action@master
