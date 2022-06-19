@@ -23,7 +23,7 @@ const getPost = async (event) => {
 
         console.log({ Item });
         response.body = JSON.stringify({
-            message: "Successfully retrieved post.",
+            message: "Successfull get request",
             data: (Item) ? unmarshall(Item) : {},
             rawData: Item,
         });
