@@ -10,42 +10,44 @@ const updatePost = async (event) => {
     const body = JSON.parse(event.body);
     const objKeys = Object.keys(body);
 
-    const params = {
+    const params1 = {
       TableName: process.env.DYNAMODB_TABLE_NAME,
       Key: marshall({
         postId: event.pathParameters.postId,
         userId: event.pathParameters.userId,
       }),
       UpdateExpression: "SET content = :content",
-      ExpressionAttributeValues: marshall({
+      ExpressionAttributeValues: {
         ":content": "I just got updated",
-      }),
+      },
       ReturnValues: "ALL_NEW",
     };
-    // const params = {
-    //     TableName: process.env.DYNAMODB_TABLE_NAME,
-    //     Key: marshall({
-    //          postId: event.pathParameters.postId,
-    //          userId: event.pathParameters.userId
-    //         }),
-    //     UpdateExpression: `SET ${objKeys.map((_, index) => `#key${index} = :value${index}`).join(", ")}`,
-    //     ExpressionAttributeNames: objKeys.reduce((acc, key, index) => ({
-    //         ...acc,
-    //         [`#key${index}`]: key,
-    //     }), {}),
-    //     ExpressionAttributeValues: marshall(objKeys.reduce((acc, key, index) => ({
-    //         ...acc,
-    //         [`:value${index}`]: body[key],
-    //     }), {})),
-    // };
+    const params = {
+        TableName: process.env.DYNAMODB_TABLE_NAME,
+        Key: marshall({
+             postId: event.pathParameters.postId,
+             userId: event.pathParameters.userId
+            }),
+        UpdateExpression: `SET ${objKeys.map((_, index) => `#key${index} = :value${index}`).join(", ")}`,
+        ExpressionAttributeNames: objKeys.reduce((acc, key, index) => ({
+            ...acc,
+            [`#key${index}`]: key,
+        }), {}),
+        ExpressionAttributeValues: marshall(objKeys.reduce((acc, key, index) => ({
+            ...acc,
+            [`:value${index}`]: body[key],
+        }), {})),
+    };
     const updateResult = await db.send(new UpdateItemCommand(params));
 
     response.body = JSON.stringify({
       message: "Successfully updated post.",
       updateResult,
     });
+    console.log(params, params1)
   } catch (e) {
     console.error(e);
+    console.log(params, params1)
     response.statusCode = 500;
     response.body = JSON.stringify({
       message: "Failed to update post.",
