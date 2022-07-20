@@ -47,7 +47,6 @@ const updatePost = async (event) => {
     console.log(params, params1)
   } catch (e) {
     console.error(e);
-    console.log(params, params1)
     response.statusCode = 500;
     response.body = JSON.stringify({
       message: "Failed to update post.",
