@@ -2,19 +2,23 @@ service: aws-crud
 
 provider:
   name: aws
-  runtime: nodejs14.x
+  runtime: nodejs16.x
   stage: dev
   region: us-east-1
+  profile: serverlessKing
   environment:
     DYNAMODB_TABLE_NAME: ${self:custom.postsTableName}
+    DYNAMODB_COMMENT_TABLE: ${self:custom.commentsTableName}
 
 custom:
-  postsTableName: posts-table-${self:provider.stage}
+  postsTableName: post-table-${self:provider.stage}
+  commentsTableName: comments-table-${self:provider.stage}
 
 plugins:
   - serverless-iam-roles-per-function
 
 functions:
+
   getPost:
     handler: lambdas/getPostById.getPost
     name: get-post
@@ -29,6 +33,7 @@ functions:
         Action:
           - "dynamodb:GetItem"
         Resource: !GetAtt PostsTable.Arn
+
   createPost:
     handler: lambdas/createPost.createPost
     name: create-post
@@ -43,6 +48,7 @@ functions:
         Action:
           - "dynamodb:PutItem"
         Resource: !GetAtt PostsTable.Arn
+
   updatePost:
     handler: lambdas/updatePost.updatePost
     name: update-post
@@ -57,6 +63,7 @@ functions:
         Action:
           - "dynamodb:UpdateItem"
         Resource: !GetAtt PostsTable.Arn
+
   deletePost:
     handler: lambdas/deletePost.deletePost
     name: delete-post
@@ -64,13 +71,14 @@ functions:
     timeout: 5 # seconds
     events:
       - http:
-          path: post/{postId}
+          path: post/{postId}/{userId}
           method: DELETE
     iamRoleStatements:
       - Effect: "Allow"
         Action:
           - "dynamodb:DeleteItem"
         Resource: !GetAtt PostsTable.Arn
+
   getAllPosts:
     handler: lambdas/getPosts.getAllPosts
     name: get-all-posts
@@ -85,6 +93,7 @@ functions:
         Action:
           - "dynamodb:Scan"
         Resource: !GetAtt PostsTable.Arn
+
   createComment:
     handler: lambdas/createComment.createComment
     name: create-comment
@@ -92,15 +101,49 @@ functions:
     timeout: 5 # seconds
     events:
       - http:
-          path: post
+          path: comment
           method: POST
     iamRoleStatements:
       - Effect: "Allow"
         Action:
           - "dynamodb:PutItem"
-        Resource: !GetAtt PostsTable.Arn
+        Resource: !GetAtt CommentsTable.Arn
+
+  getComment:
+    handler: lambdas/getComment.getComment
+    name: get-comment
+    memorySize: 128 # mb
+    timeout: 5 # seconds
+    events:
+      - http:
+          path: comments/{postId}
+          method: GET
+    iamRoleStatements:
+      - Effect: "Allow"
+        Action:
+          - "dynamodb:GetItem"
+        Resource: !GetAtt CommentsTable.Arn
+
+  deleteComment:
+    handler: lambdas/deleteComment.deleteComment
+    name: delete-comment
+    memorySize: 128 # mb
+    timeout: 5 # seconds
+    events:
+      - http:
+          path: comment
+          method: DELETE
+    iamRoleStatements:
+      - Effect: "Allow"
+        Action:
+          - "dynamodb:DeleteItem"
+        Resource: !GetAtt CommentsTable.Arn
+
+
 resources:
   Resources:
+
+# Posts Table
     PostsTable:
       Type: AWS::DynamoDB::Table
       Properties:
@@ -108,9 +151,44 @@ resources:
         AttributeDefinitions:
           - AttributeName: postId
             AttributeType: S
+          - AttributeName: userId
+            AttributeType: S
         KeySchema:
           - AttributeName: postId
             KeyType: HASH
+          - AttributeName: userId
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        GlobalSecondaryIndexes:
+        - IndexName: userId-posId-index
+          KeySchema:
+            - AttributeName: userId
+              KeyType: HASH
+            - AttributeName: postId
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+          ProvisionedThroughput:
+            ReadCapacityUnits: 1
+            WriteCapacityUnits: 1
+
+  # Comments Table
+    CommentsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.commentsTableName}
+        AttributeDefinitions:
+          - AttributeName: postId
+            AttributeType: S
+          - AttributeName: commentId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: postId
+            KeyType: HASH
+          - AttributeName: commentId
+            KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1

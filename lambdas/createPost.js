@@ -1,35 +1,43 @@
-const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
-const db = new DynamoDBClient({});
-const {PutItemCommand} = require("@aws-sdk/client-dynamodb");
+const { DynamoDBClient, PutItemCommand } = require("@aws-sdk/client-dynamodb");
 const { marshall } = require("@aws-sdk/util-dynamodb");
+const { uuid } = require('uuidv4');
 
+const dynamo = new DynamoDBClient({});
 
 const createPost = async (event) => {
-    const response = { statusCode: 200 };
+  const response = { statusCode: 200 };
 
-    try {
-        const body = JSON.parse(event.body);
-        const params = {
-            TableName: process.env.DYNAMODB_TABLE_NAME,
-            Item: marshall(body || {}),
-        };
-        const createResult = await db.send(new PutItemCommand(params));
+  try {
+    const requestJSON = JSON.parse(event.body);
+    const data = {
+      postId: uuid(),
+      userId: requestJSON.userId,
+      userName: requestJSON.userName,
+      date: new Date().getTime(),
+      content: requestJSON.content,
+      comments: 0,
+    };
+    const params = {
+      TableName: process.env.DYNAMODB_TABLE_NAME,
+      Item: marshall(data),
+    };
+    const createResult = await dynamo.send(new PutItemCommand(params));
 
-        response.body = JSON.stringify({
-            message: "Successfully created post.",
-            createResult,
-        });
-    } catch (e) {
-        console.error(e);
-        response.statusCode = 500;
-        response.body = JSON.stringify({
-            message: "Failed to create post.",
-            errorMsg: e.message,
-            errorStack: e.stack,
-        });
-    }
+    response.body = JSON.stringify({
+      message: "Successfully created post.",
+      data,
+    });
+  } catch (e) {
+    console.error(e);
+    response.statusCode = 500;
+    response.body = JSON.stringify({
+      message: "Failed to create post.",
+      errorMsg: e.message,
+      errorStack: e.stack,
+    });
+  }
 
-    return response;
+  return response;
 };
 
-module.exports = { createPost};
+module.exports = { createPost };

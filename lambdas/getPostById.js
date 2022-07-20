@@ -1,9 +1,7 @@
-const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
-const db = new DynamoDBClient({});
-const {GetItemCommand} = require("@aws-sdk/client-dynamodb");
+const { DynamoDBClient, QueryCommand } = require("@aws-sdk/client-dynamodb");
 const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
 
-
+const dynamo = new DynamoDBClient({});
 
 const getPost = async (event) => {
     const response = { statusCode: 200 };
@@ -11,16 +9,21 @@ const getPost = async (event) => {
     try {
         const params = {
             TableName: process.env.DYNAMODB_TABLE_NAME,
-            Key: marshall({ postId: event.pathParameters.postId }),
+            IndexName: "userId-postId-index",
+            ConsistentRead: false,
+            KeyConditionExpression: "userId = :userId",
+            ExpressionAttributeValues: {
+                ":userId": event.pathParameters.userId
+            }
         };
-        const { Item } = await db.send(new GetItemCommand(params));
+        const res = await dynamo.send(new QueryCommand(params));
 
-        console.log({ Item });
-        response.body = JSON.stringify({
-            message: "Successfull get request",
-            data: (Item) ? unmarshall(Item) : {},
-            rawData: Item,
-        });
+        console.log(res);
+        // response.body = JSON.stringify({
+        //     message: "Successfull get request",
+        //     data: (Item) ? unmarshall(Item) : {},
+        //     rawData: Item,
+        // });
     } catch (e) {
         console.error(e);
         response.statusCode = 500;

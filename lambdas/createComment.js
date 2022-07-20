@@ -1,36 +1,42 @@
-const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
-const db = new DynamoDBClient({});
-const {PutItemCommand} = require("@aws-sdk/client-dynamodb");
+const { DynamoDBClient, PutItemCommand } = require("@aws-sdk/client-dynamodb");
 const { marshall } = require("@aws-sdk/util-dynamodb");
 
+const dynamo = new DynamoDBClient({});
 
 const createComment = async (event) => {
-    const response = { statusCode: 200 };
+  const response = { statusCode: 200 };
 
-    try {
-        const body = JSON.parse(event.body);
-        const params = {
-            TableName: process.env.DYNAMODB_TABLE_NAME,
-            Key: marshall({ postId: event.pathParameters.postId }),
-            Item: marshall(body),
-        };
-        const createResult = await db.send(new PutItemCommand(params));
-
-        response.body = JSON.stringify({
-            message: "Successfully created comment.",
-            createResult,
-        });
-    } catch (e) {
-        console.error(e);
-        response.statusCode = 500;
-        response.body = JSON.stringify({
-            message: "Failed to create comment.",
-            errorMsg: e.message,
-            errorStack: e.stack,
-        });
+  try {
+    const requestJSON = JSON.parse(event.body);
+    const data= {
+        postId: requestJSON.postId,
+        commentId: requestJSON.commentId,
+        userId: requestJSON.userId,
+        userName: requestJSON.userName,
+        comment: requestJSON.comment,
+        date: new Date().getTime(),
     }
+    const params = {
+      TableName: process.env.DYNAMODB_COMMENT_TABLE,
+      Item: marshall(data),
+    };
+    const createResult = await dynamo.send(new PutItemCommand(params));
 
-    return response;
+    response.body = JSON.stringify({
+      message: "Successfully created comment.",
+      createResult,
+    });
+  } catch (e) {
+    console.error(e);
+    response.statusCode = 500;
+    response.body = JSON.stringify({
+      message: "Failed to create comment.",
+      errorMsg: e.message,
+      errorStack: e.stack,
+    });
+  }
+
+  return response;
 };
 
-module.exports = { createComment};
+module.exports = { createComment };
