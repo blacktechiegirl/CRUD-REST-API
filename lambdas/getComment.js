@@ -20,7 +20,7 @@ const getComment = async (event) => {
 
         response.body = JSON.stringify({
             message: "Successfully retrieved all comments.",
-            data: Items.map((item) => unmarshall(item)) || [],
+            data: Items.length ==! 0? Items.map((item) => unmarshall(item)) : [],
             Items,
         });
     } catch (e) {
