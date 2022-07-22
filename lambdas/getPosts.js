@@ -26,10 +26,9 @@ const getAllPosts = async () => {
         const { Items } = await dynamo.send(new ScanCommand(params));
         const data = Items.map((item) => unmarshall(item))
 
-        response.body = JSON.stringify({
-            message: "Successfully retrieved all posts.",
-            data: data.sort(sortByDate)
-        });
+        response.body = JSON.stringify(
+            data.sort(sortByDate)
+        );
     } catch (e) {
         console.error(e);
         response.statusCode = 500;
