@@ -3,6 +3,12 @@ const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
 
 const dynamo = new DynamoDBClient({});
 
+function sortByDate (a,b){
+    if(a.date >b.date){
+      return -1
+    }else return 1
+  }
+
 const getPost = async (event) => {
     const response = { 
         statusCode: 200,
@@ -25,9 +31,10 @@ const getPost = async (event) => {
         };
 
         const { Items } = await db.send(new QueryCommand(params));
+        const data = Items.map((item) => unmarshall(item));
         response.body = JSON.stringify({
             message: `Successfully retrieved all posts by ${event.pathParameters.userId}.`,
-            data: Items.map((item) => unmarshall(item)),
+            data: data.sort(sortByDate),
         });
         // const res = await dynamo.send(new QueryCommand(params));
 
