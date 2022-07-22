@@ -5,7 +5,14 @@ const { uuid } = require('uuidv4');
 const dynamo = new DynamoDBClient({});
 
 const createComment = async (event) => {
-  const response = { statusCode: 200 };
+  const response = { 
+    statusCode: 200,
+    headers: {
+        "Access-Control-Allow-Headers" : "Content-Type",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "*"
+    },
+ };
 
   try {
     const requestJSON = JSON.parse(event.body);

@@ -4,7 +4,14 @@ const {unmarshall } = require("@aws-sdk/util-dynamodb");
 const dynamo = new DynamoDBClient({});
 
 const getAllPosts = async () => {
-    const response = { statusCode: 200 };
+    const response = { 
+        statusCode: 200,
+        headers: {
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "*"
+        },
+     };
 
     try {
         const params = {

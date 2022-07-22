@@ -4,7 +4,14 @@ const { UpdateItemCommand } = require("@aws-sdk/client-dynamodb");
 const { marshall } = require("@aws-sdk/util-dynamodb");
 
 const updatePost = async (event) => {
-  const response = { statusCode: 200 };
+  const response = { 
+    statusCode: 200,
+    headers: {
+        "Access-Control-Allow-Headers" : "Content-Type",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "*"
+    },
+ };
   const requestJSON = JSON.parse(event.body);
 
   try {

@@ -5,12 +5,23 @@ const { marshall } = require("@aws-sdk/util-dynamodb");
 
 
 const deleteComment = async (event) => {
-    const response = { statusCode: 200 };
+    const response = { 
+        statusCode: 200,
+        headers: {
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "*"
+        },
+     };
 
     try {
         const params = {
             TableName: process.env.DYNAMODB_COMMENT_TABLE,
-            Key: marshall({ postId: event.pathParameters.postId }),
+            Key: marshall({ 
+                postId: event.pathParameters.postId,
+                commentId: event.pathParameters.commentId,
+
+             }),
         };
         const deleteResult = await db.send(new DeleteItemCommand(params));
 

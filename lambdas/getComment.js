@@ -6,7 +6,14 @@ const {unmarshall, marshall } = require("@aws-sdk/util-dynamodb");
 
 
 const getComment = async (event) => {
-    const response = { statusCode: 200 };
+    const response = { 
+        statusCode: 200,
+        headers: {
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "*"
+        },
+     };
     const params = {
         TableName: process.env.DYNAMODB_COMMENT_TABLE,
         KeyConditionExpression: "postId = :postId",
