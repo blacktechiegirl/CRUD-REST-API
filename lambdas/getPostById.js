@@ -12,13 +12,19 @@ const getPost = async (event) => {
             IndexName: "userId-postId-index",
             ConsistentRead: false,
             KeyConditionExpression: "userId = :userId",
-            ExpressionAttributeValues: {
+            ExpressionAttributeValues: marshall({
                 ":userId": event.pathParameters.userId
-            }
+            })
         };
-        const res = await dynamo.send(new QueryCommand(params));
 
-        console.log(res);
+        const { Items } = await db.send(new QueryCommand(params));
+        response.body = JSON.stringify({
+            message: `Successfully retrieved all posts by ${event.pathParameters.userId}.`,
+            data: Items.map((item) => unmarshall(item)),
+        });
+        // const res = await dynamo.send(new QueryCommand(params));
+
+        // console.log(res);
         // response.body = JSON.stringify({
         //     message: "Successfull get request",
         //     data: (Item) ? unmarshall(Item) : {},
