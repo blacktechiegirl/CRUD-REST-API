@@ -17,7 +17,7 @@ const getComment = async (event) => {
 
     try {
         const result = await db.send(new QueryCommand(params));
-        console.log(result)
+        return(result)
         
         // const { Items } = await db.send(new QueryCommand(params));
 

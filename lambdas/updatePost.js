@@ -5,6 +5,7 @@ const { marshall } = require("@aws-sdk/util-dynamodb");
 
 const updatePost = async (event) => {
   const response = { statusCode: 200 };
+  const requestJSON = JSON.parse(event.body);
 
   try {
     const params = {
@@ -18,7 +19,7 @@ const updatePost = async (event) => {
         "#attrName":  "content"
       },
       ExpressionAttributeValues: 
-        marshall({":attrValue": {"S": "I just got updated"}}),
+        marshall({":attrValue": {"S": requestJSON.content}}),
       ReturnValues: "ALL_NEW",
     };
     // const params1 = {
