@@ -1,7 +1,7 @@
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const db = new DynamoDBClient({});
 const {QueryCommand} = require("@aws-sdk/client-dynamodb");
-const {unmarshall } = require("@aws-sdk/util-dynamodb");
+const {unmarshall, marshall } = require("@aws-sdk/util-dynamodb");
 
 
 
@@ -10,9 +10,9 @@ const getComment = async (event) => {
     const params = {
         TableName: process.env.DYNAMODB_COMMENT_TABLE,
         KeyConditionExpression: "postId = :postId",
-            ExpressionAttributeValues: {
+            ExpressionAttributeValues: marshall({
                 ":postId": event.pathParameters.postId
-            }
+            })
     };
 
     try {        
