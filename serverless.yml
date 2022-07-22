@@ -55,7 +55,7 @@ functions:
     timeout: 5 # seconds
     events:
       - http:
-          path: post/{postId}
+          path: post/{postId}/{userId}
           method: PUT
     iamRoleStatements:
       - Effect: "Allow"
