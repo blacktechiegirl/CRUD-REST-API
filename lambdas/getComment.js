@@ -4,6 +4,11 @@ const {QueryCommand} = require("@aws-sdk/client-dynamodb");
 const {unmarshall, marshall } = require("@aws-sdk/util-dynamodb");
 
 
+function sortByDate (a,b){
+    if(a.date >b.date){
+      return -1
+    }else return 1
+  }
 
 const getComment = async (event) => {
     const response = { 
@@ -24,10 +29,8 @@ const getComment = async (event) => {
 
     try {        
         const { Items } = await db.send(new QueryCommand(params));
-        response.body = JSON.stringify({
-            message: "Successfully retrieved all posts.",
-            data: Items.map((item) => unmarshall(item)),
-        });
+        const data = Items.map((item) => unmarshall(item));
+        response.body = JSON.stringify(data.sort(sortByDate));
         // response.body = JSON.stringify({
         //     message: "Successfully retrieved all comments.",
         //     data: Items.length ==! 0? Items.map((item) => unmarshall(item)) : [],

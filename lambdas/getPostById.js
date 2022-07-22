@@ -1,7 +1,7 @@
-const { DynamoDBClient, QueryCommand } = require("@aws-sdk/client-dynamodb");
-const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
+const { DynamoynamoClient, QueryCommand } = require("@aws-sdk/client-dynamoynamo");
+const { marshall, unmarshall } = require("@aws-sdk/util-dynamoynamo");
 
-const dynamo = new DynamoDBClient({});
+const dynamo = new DynamoynamoClient({});
 
 function sortByDate (a,b){
     if(a.date >b.date){
@@ -21,7 +21,7 @@ const getPost = async (event) => {
 
     try {
         const params = {
-            TableName: process.env.DYNAMODB_TABLE_NAME,
+            TableName: process.env.DYNAMOynamo_TABLE_NAME,
             IndexName: "userId-postId-index",
             ConsistentRead: false,
             KeyConditionExpression: "userId = :userId",
@@ -30,12 +30,9 @@ const getPost = async (event) => {
             })
         };
 
-        const { Items } = await db.send(new QueryCommand(params));
+        const { Items } = await dynamo.send(new QueryCommand(params));
         const data = Items.map((item) => unmarshall(item));
-        response.body = JSON.stringify({
-            message: `Successfully retrieved all posts by ${event.pathParameters.userId}.`,
-            data: data.sort(sortByDate),
-        });
+        response.body = JSON.stringify(data.sort(sortByDate));
         // const res = await dynamo.send(new QueryCommand(params));
 
         // console.log(res);
