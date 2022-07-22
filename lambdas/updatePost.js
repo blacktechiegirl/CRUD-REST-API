@@ -13,7 +13,7 @@ const updatePost = async (event) => {
         postId: event.pathParameters.postId,
         userId: event.pathParameters.userId,
       }),
-      UpdateExpression: "SET #attrName = :atrrValue",
+      UpdateExpression: "SET #attrName = :attrValue",
       ExpressionAttributeNames: {
         "#attrName":  "content"
       },
