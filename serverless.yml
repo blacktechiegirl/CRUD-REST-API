@@ -120,7 +120,7 @@ functions:
     iamRoleStatements:
       - Effect: "Allow"
         Action:
-          - "dynamodb:QueryItem"
+          - "dynamodb:Query"
         Resource: !GetAtt CommentsTable.Arn
 
   deleteComment:
