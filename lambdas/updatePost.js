@@ -19,7 +19,7 @@ const updatePost = async (event) => {
         "#attrName":  "content"
       },
       ExpressionAttributeValues: 
-        marshall({":attrValue": {"S": requestJSON.content}}),
+        marshall({":attrValue":  requestJSON.content}),
       ReturnValues: "ALL_NEW",
     };
     // const params1 = {
