@@ -1,5 +1,6 @@
 const { DynamoDBClient, PutItemCommand } = require("@aws-sdk/client-dynamodb");
 const { marshall } = require("@aws-sdk/util-dynamodb");
+const { uuid } = require('uuidv4');
 
 const dynamo = new DynamoDBClient({});
 
@@ -10,7 +11,7 @@ const createComment = async (event) => {
     const requestJSON = JSON.parse(event.body);
     const data= {
         postId: requestJSON.postId,
-        commentId: requestJSON.commentId,
+        commentId: uuid(),
         userId: requestJSON.userId,
         userName: requestJSON.userName,
         comment: requestJSON.comment,
