@@ -43,7 +43,7 @@ const updatePost = async (event) => {
       message: "Successfully updated post.",
       updateResult,
     });
-    console.log(params, params1)
+    console.log(params)
   } catch (e) {
     console.error(e);
     response.statusCode = 500;

@@ -17,7 +17,8 @@ const getComment = async (event) => {
 
     try {
         const result = await db.send(new QueryCommand(params));
-        response.body = result
+        console.log(result)
+        
         // const { Items } = await db.send(new QueryCommand(params));
 
         // response.body = JSON.stringify({
