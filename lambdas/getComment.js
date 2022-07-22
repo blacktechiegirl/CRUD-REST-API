@@ -15,12 +15,12 @@ const getComment = async (event) => {
             }
     };
 
-    try {
-        const result = await db.send(new QueryCommand(params));
-        return(result)
-        
-        // const { Items } = await db.send(new QueryCommand(params));
-
+    try {        
+        const { Items } = await db.send(new QueryCommand(params));
+        response.body = JSON.stringify({
+            message: "Successfully retrieved all posts.",
+            data: Items.map((item) => unmarshall(item)),
+        });
         // response.body = JSON.stringify({
         //     message: "Successfully retrieved all comments.",
         //     data: Items.length ==! 0? Items.map((item) => unmarshall(item)) : [],
