@@ -10,7 +10,7 @@ const updatePost = async (event) => {
     const body = JSON.parse(event.body);
     const objKeys = Object.keys(body);
 
-    const params1 = {
+    const params = {
       TableName: process.env.DYNAMODB_TABLE_NAME,
       Key: marshall({
         postId: event.pathParameters.postId,
@@ -25,7 +25,7 @@ const updatePost = async (event) => {
       },
       ReturnValues: "ALL_NEW",
     };
-    const params = {
+    const params1 = {
         TableName: process.env.DYNAMODB_TABLE_NAME,
         Key: marshall({
              postId: event.pathParameters.postId,
