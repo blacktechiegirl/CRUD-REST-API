@@ -20,9 +20,8 @@ const updatePost = async (event) => {
       ExpressionAttributeNames: {
         "#attrName":  "content"
       },
-      ExpressionAttributeValues: {
-        ":attrValue": {"S": "I just got updated"},
-      },
+      ExpressionAttributeValues: 
+        marshall({":attrValue": {"S": "I just got updated"}}),
       ReturnValues: "ALL_NEW",
     };
     const params1 = {
