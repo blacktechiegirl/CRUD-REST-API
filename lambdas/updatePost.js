@@ -21,22 +21,22 @@ const updatePost = async (event) => {
         marshall({":attrValue": {"S": "I just got updated"}}),
       ReturnValues: "ALL_NEW",
     };
-    const params1 = {
-        TableName: process.env.DYNAMODB_TABLE_NAME,
-        Key: marshall({
-             postId: event.pathParameters.postId,
-             userId: event.pathParameters.userId
-            }),
-        UpdateExpression: `SET ${objKeys.map((_, index) => `#key${index} = :value${index}`).join(", ")}`,
-        ExpressionAttributeNames: objKeys.reduce((acc, key, index) => ({
-            ...acc,
-            [`#key${index}`]: key,
-        }), {}),
-        ExpressionAttributeValues: marshall(objKeys.reduce((acc, key, index) => ({
-            ...acc,
-            [`:value${index}`]: body[key],
-        }), {})),
-    };
+    // const params1 = {
+    //     TableName: process.env.DYNAMODB_TABLE_NAME,
+    //     Key: marshall({
+    //          postId: event.pathParameters.postId,
+    //          userId: event.pathParameters.userId
+    //         }),
+    //     UpdateExpression: `SET ${objKeys.map((_, index) => `#key${index} = :value${index}`).join(", ")}`,
+    //     ExpressionAttributeNames: objKeys.reduce((acc, key, index) => ({
+    //         ...acc,
+    //         [`#key${index}`]: key,
+    //     }), {}),
+    //     ExpressionAttributeValues: marshall(objKeys.reduce((acc, key, index) => ({
+    //         ...acc,
+    //         [`:value${index}`]: body[key],
+    //     }), {})),
+    // };
     const updateResult = await db.send(new UpdateItemCommand(params));
 
     response.body = JSON.stringify({

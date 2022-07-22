@@ -16,13 +16,15 @@ const getComment = async (event) => {
     };
 
     try {
-        const { Items } = await db.send(new QueryCommand(params));
+        const result = await db.send(new QueryCommand(params));
+        response.body = result
+        // const { Items } = await db.send(new QueryCommand(params));
 
-        response.body = JSON.stringify({
-            message: "Successfully retrieved all comments.",
-            data: Items.length ==! 0? Items.map((item) => unmarshall(item)) : [],
-            Items,
-        });
+        // response.body = JSON.stringify({
+        //     message: "Successfully retrieved all comments.",
+        //     data: Items.length ==! 0? Items.map((item) => unmarshall(item)) : [],
+        //     Items,
+        // });
     } catch (e) {
         console.error(e);
         response.statusCode = 500;
