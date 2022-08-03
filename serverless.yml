@@ -25,7 +25,7 @@ functions:
     timeout: 5 # seconds
     events:
       - http:
-          path: post/{postId}
+          path: post/{userId}
           method: GET
     iamRoleStatements:
       - Effect: "Allow"
@@ -108,20 +108,7 @@ functions:
           - "dynamodb:PutItem"
         Resource: !GetAtt CommentsTable.Arn
 
-  getComment:
-    handler: lambdas/getComment.getComment
-    name: get-comment
-    memorySize: 128 # mb
-    timeout: 5 # seconds
-    events:
-      - http:
-          path: comments/{postId}
-          method: GET
-    iamRoleStatements:
-      - Effect: "Allow"
-        Action:
-          - "dynamodb:Query"
-        Resource: !GetAtt CommentsTable.Arn
+
 
   deleteComment:
     handler: lambdas/deleteComment.deleteComment
