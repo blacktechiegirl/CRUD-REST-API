@@ -70,7 +70,7 @@ functions:
     timeout: 5 # seconds
     events:
       - http:
-          path: post/{postId}/{userId}
+          path: post/{postId}/{postId}
           method: DELETE
     iamRoleStatements:
       - Effect: "Allow"
