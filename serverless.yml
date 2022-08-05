@@ -25,8 +25,9 @@ functions:
     timeout: 5 # seconds
     events:
       - http:
-          path: post/{userId}
+          path: post/{postId}
           method: GET
+          cors: true
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -42,6 +43,7 @@ functions:
       - http:
           path: post
           method: POST
+          cors: true
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -57,6 +59,7 @@ functions:
       - http:
           path: post/{postId}/{userId}
           method: PUT
+          cors: true
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -72,6 +75,7 @@ functions:
       - http:
           path: post/{postId}/{postId}
           method: DELETE
+          cors: true
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -87,6 +91,7 @@ functions:
       - http:
           path: posts
           method: GET
+          cors: true
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -102,6 +107,7 @@ functions:
       - http:
           path: comment
           method: POST
+          cors: true
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -119,6 +125,7 @@ functions:
       - http:
           path: comment
           method: DELETE
+          cors: true
     iamRoleStatements:
       - Effect: "Allow"
         Action:
