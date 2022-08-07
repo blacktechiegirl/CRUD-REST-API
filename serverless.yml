@@ -3,7 +3,7 @@ service: aws-crud
 provider:
   name: aws
   runtime: nodejs16.x
-  stage: staging
+  stage: dev
   region: us-east-1
   environment:
     DYNAMODB_TABLE_NAME: ${self:custom.postsTableName}
@@ -18,21 +18,21 @@ plugins:
 
 functions:
 
-  getPost:
-    handler: lambdas/getPostById.getPost
-    name: get-post
-    memorySize: 128 # mb
-    timeout: 5 # seconds
-    events:
-      - http:
-          path: post/{postId}
-          method: GET
-          cors: true
-    iamRoleStatements:
-      - Effect: "Allow"
-        Action:
-          - "dynamodb:Query"
-        Resource: !GetAtt PostsTable.Arn
+  # getPost:
+  #   handler: lambdas/getPostById.getPost
+  #   name: get-post
+  #   memorySize: 128 # mb
+  #   timeout: 5 # seconds
+  #   events:
+  #     - http:
+  #         path: post/{userId}
+  #         method: GET
+  #         cors: true
+  #   iamRoleStatements:
+  #     - Effect: "Allow"
+  #       Action:
+  #         - "dynamodb:Query"
+  #       Resource: !GetAtt PostsTable.Arn
 
   createPost:
     handler: lambdas/createPost.createPost
