@@ -44,8 +44,7 @@ functions:
       - http:
           path: post
           method: POST
-          cors: true
-          integration: lambda         
+          cors: true        
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -93,8 +92,7 @@ functions:
       - http:
           path: posts
           method: GET
-          cors: true
-          integration: lambda       
+          cors: true       
     iamRoleStatements:
       - Effect: "Allow"
         Action:
