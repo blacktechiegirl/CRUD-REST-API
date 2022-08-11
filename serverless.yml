@@ -44,7 +44,8 @@ functions:
       - http:
           path: post
           method: POST
-          cors: true        
+          cors: true
+          integration: lambda         
     iamRoleStatements:
       - Effect: "Allow"
         Action:
