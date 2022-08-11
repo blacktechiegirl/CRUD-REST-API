@@ -114,7 +114,21 @@ functions:
           - "dynamodb:PutItem"
         Resource: !GetAtt CommentsTable.Arn
 
-
+  getComment:
+    handler: lambdas/getComment.getComment
+    name: get-comment
+    memorySize: 128 # mb
+    timeout: 5 # seconds
+    events:
+      - http:
+          path: comment/{postId}
+          method: GET
+          
+    iamRoleStatements:
+      - Effect: "Allow"
+        Action:
+          - "dynamodb:Query"
+        Resource: !GetAtt CommentsTable.Arn
 
   deleteComment:
     handler: lambdas/deleteComment.deleteComment
