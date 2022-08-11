@@ -15,6 +15,7 @@ custom:
 
 plugins:
   - serverless-iam-roles-per-function
+  - serverless-offline
 
 functions:
 
@@ -27,7 +28,7 @@ functions:
       - http:
           path: posts/{userId}
           method: GET
-          
+          cors: true       
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -43,7 +44,7 @@ functions:
       - http:
           path: post
           method: POST
-          
+          cors: true        
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -59,7 +60,7 @@ functions:
       - http:
           path: post/{postId}/{userId}
           method: PUT
-          
+          cors: true       
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -75,7 +76,7 @@ functions:
       - http:
           path: post/{postId}/{userId}
           method: DELETE
-          
+          cors: true          
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -91,7 +92,7 @@ functions:
       - http:
           path: posts
           method: GET
-          
+          cors: true       
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -107,7 +108,7 @@ functions:
       - http:
           path: comment
           method: POST
-          
+          cors: true        
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -123,7 +124,7 @@ functions:
       - http:
           path: comment/{postId}
           method: GET
-          
+          cors: true       
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -139,7 +140,7 @@ functions:
       - http:
           path: comment/{postId}/{commentId}
           method: DELETE
-          
+          cors: true          
     iamRoleStatements:
       - Effect: "Allow"
         Action:
