@@ -1,5 +1,5 @@
-const { DynamoynamoClient, QueryCommand } = require("@aws-sdk/client-dynamoynamo");
-const { marshall, unmarshall } = require("@aws-sdk/util-dynamoynamo");
+const { DynamoynamoClient, QueryCommand } = require("@aws-sdk/client-dynamo");
+const { marshall, unmarshall } = require("@aws-sdk/util-dynamo");
 
 const dynamo = new DynamoynamoClient({});
 
