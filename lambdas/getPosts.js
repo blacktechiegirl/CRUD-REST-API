@@ -39,7 +39,7 @@ const getAllPosts = async () => {
         });
     }
 
-    return response;
+    return data;
 };
 
 module.exports = { getAllPosts};
