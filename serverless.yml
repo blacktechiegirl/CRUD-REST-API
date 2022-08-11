@@ -92,7 +92,8 @@ functions:
       - http:
           path: posts
           method: GET
-          cors: true       
+          cors: true
+          integration: lambda       
     iamRoleStatements:
       - Effect: "Allow"
         Action:
