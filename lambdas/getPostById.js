@@ -1,7 +1,7 @@
-const { DynamoynamoClient, QueryCommand } = require("@aws-sdk/client-dynamo");
-const { marshall, unmarshall } = require("@aws-sdk/util-dynamo");
-
-const dynamo = new DynamoynamoClient({});
+const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
+const dynamo = new DynamoDBClient({});
+const {QueryCommand} = require("@aws-sdk/client-dynamodb");
+const {unmarshall, marshall } = require("@aws-sdk/util-dynamodb");
 
 function sortByDate (a,b){
     if(a.date >b.date){
