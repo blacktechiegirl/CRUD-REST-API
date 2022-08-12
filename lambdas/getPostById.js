@@ -18,7 +18,7 @@ const getPost = async (event) => {
             ConsistentRead: false,
             KeyConditionExpression: "userId = :userId",
             ExpressionAttributeValues: marshall({
-                ":userId": event.pathParameters.userId
+                ":userId": event.path.userId
             })
         };
 
@@ -33,7 +33,7 @@ const getPost = async (event) => {
         //     data: (Item) ? unmarshall(Item) : {},
         //     rawData: Item,
         // });
-        return event;
+        return body;
     } catch (e) {
         const response = {};
         response.statusCode = 500;
@@ -42,7 +42,7 @@ const getPost = async (event) => {
             errorMsg: e.message,
             errorStack: e.stack,
         });
-        return event;
+        return response;
     }
 
     
