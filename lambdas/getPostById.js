@@ -10,15 +10,7 @@ function sortByDate (a,b){
   }
 
 const getPost = async (event) => {
-    const response = { 
-        statusCode: 200,
-        headers: {
-            "Access-Control-Allow-Headers" : "Content-Type",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "*"
-        },
-     };
-
+    
     try {
         const params = {
             TableName: process.env.DYNAMOynamo_TABLE_NAME,
@@ -32,7 +24,7 @@ const getPost = async (event) => {
 
         const { Items } = await dynamo.send(new QueryCommand(params));
         const data = Items.map((item) => unmarshall(item));
-        response.body = JSON.stringify(data.sort(sortByDate));
+        const body = data.sort(sortByDate);
         // const res = await dynamo.send(new QueryCommand(params));
 
         // console.log(res);
@@ -41,16 +33,19 @@ const getPost = async (event) => {
         //     data: (Item) ? unmarshall(Item) : {},
         //     rawData: Item,
         // });
+        return event;
     } catch (e) {
+        const response = {};
         response.statusCode = 500;
         response.body = JSON.stringify({
             message: "Failed to get post.",
             errorMsg: e.message,
             errorStack: e.stack,
         });
+        return response;
     }
 
-    return response;
+    
 };
 
 module.exports = { getPost};
