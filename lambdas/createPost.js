@@ -25,7 +25,7 @@ const createPost = async (event, context) => {
       message: "Successfully created post.",
       data,
     };
-    return event;
+    return body;
   } catch (err) {
 
     const response = {

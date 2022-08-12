@@ -17,6 +17,7 @@ const getAllPosts = async () => {
     data = Items.map((item) => unmarshall(item));
     data = data.sort(sortByDate);
     return data;
+    
   } catch (err) {
     const response = {};
     response.statusCode = 500;
