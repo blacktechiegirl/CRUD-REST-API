@@ -34,10 +34,10 @@ const getPost = async (event, context) => {
     // });
     return body;
   } catch (e) {
-    context.fail({
+    context.fail(JSON.stringify({
       statusCode: 500,
       errors: "failed to fetch users post",
-    });
+    }));
   }
 };
 
