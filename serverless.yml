@@ -46,7 +46,15 @@ functions:
           path: post
           method: POST
           cors: true
-          integration: lambda        
+          integration: lambda
+          response:
+            statusCodes:
+              500:
+                pattern: '.*"statusCode":500,.*' # JSON response
+                template:
+                  application/json: $input.path("$.errorMessage") # JSON return object
+                headers:
+                  Content-Type: "'application/json+hal'"        
     iamRoleStatements:
       - Effect: "Allow"
         Action:

@@ -13,7 +13,7 @@ const getPost = async (event) => {
     
     try {
         const params = {
-            TableName: process.env.DYNAMOynamo_TABLE_NAME,
+            TableName: process.env.DYNAMO_TABLE_NAME,
             IndexName: "userId-postId-index",
             ConsistentRead: false,
             KeyConditionExpression: "userId = :userId",
