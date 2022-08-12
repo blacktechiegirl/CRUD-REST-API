@@ -42,7 +42,7 @@ const getPost = async (event) => {
             errorMsg: e.message,
             errorStack: e.stack,
         });
-        return response;
+        return event;
     }
 
     
