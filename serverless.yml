@@ -28,7 +28,8 @@ functions:
       - http:
           path: posts/{userId}
           method: GET
-          cors: true       
+          cors: true
+          integration: lambda       
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -44,7 +45,8 @@ functions:
       - http:
           path: post
           method: POST
-          cors: true        
+          cors: true
+          integration: lambda        
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -60,7 +62,8 @@ functions:
       - http:
           path: post/{postId}/{userId}
           method: PUT
-          cors: true       
+          cors: true
+          integration: lambda       
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -76,7 +79,8 @@ functions:
       - http:
           path: post/{postId}/{userId}
           method: DELETE
-          cors: true          
+          cors: true
+          integration: lambda          
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -109,7 +113,8 @@ functions:
       - http:
           path: comment
           method: POST
-          cors: true        
+          cors: true
+          integration: lambda        
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -125,7 +130,8 @@ functions:
       - http:
           path: comment/{postId}
           method: GET
-          cors: true       
+          cors: true
+          integration: lambda       
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -141,7 +147,8 @@ functions:
       - http:
           path: comment/{postId}/{commentId}
           method: DELETE
-          cors: true          
+          cors: true
+          integration: lambda          
     iamRoleStatements:
       - Effect: "Allow"
         Action:
