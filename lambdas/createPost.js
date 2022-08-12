@@ -6,7 +6,7 @@ const dynamo = new DynamoDBClient({});
 
 const createPost = async (event, context) => {
   try {
-    const requestJSON = JSON.parse(event.body);
+    const requestJSON = event.body;
     const data = {
       postId: uuid(),
       userId: requestJSON.userId,
