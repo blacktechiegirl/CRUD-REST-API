@@ -10,7 +10,9 @@ function sortByDate(a, b) {
 }
 
 const getPost = async (event, context) => {
+  const response = {};
   try {
+    let data;
     const params = {
       TableName: process.env.DYNAMODB_TABLE_NAME,
       IndexName: "userId-posId-index",
@@ -22,8 +24,16 @@ const getPost = async (event, context) => {
     };
 
     const { Items } = await dynamo.send(new QueryCommand(params));
-    const data = Items.map((item) => unmarshall(item));
-    const body = data.sort(sortByDate);
+    data = Items.map((item) => unmarshall(item));
+    data = data.sort(sortByDate);
+
+    response.statusCode = 200;
+    response.body = JSON.stringify({
+      message: "success",
+      result: data.length,
+      data
+    });
+    return response;
     // const res = await dynamo.send(new QueryCommand(params));
 
     // console.log(res);
@@ -34,10 +44,12 @@ const getPost = async (event, context) => {
     // });
     return body;
   } catch (e) {
-    context.fail(JSON.stringify({
-      statusCode: 500,
-      errors: "failed to fetch users post",
-    }));
+    response.statusCode = 500;
+    response.body = JSON.stringify({
+      message: "Failed to fetch post.",
+      errorMsg: e.message,
+      errorStack: e.stack,
+    });
   }
 };
 
