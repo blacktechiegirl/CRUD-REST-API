@@ -16,7 +16,7 @@ const createPost = async (event, context) => {
   try {
     const requestJSON = event.body;
     if (!userid || !username || !content){
-      throw Error('Invalid Request Body')
+      new Error('Invalid Request Body')
     }
     const data = {
       postId: uuid(),
