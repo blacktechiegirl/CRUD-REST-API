@@ -5,12 +5,23 @@ const { uuid } = require("uuidv4");
 const dynamo = new DynamoDBClient({});
 
 const createPost = async (event, context) => {
+  const response = {
+    statusCode: 200,
+    headers: {
+      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "*",
+    },
+  };
   try {
     const requestJSON = event.body;
+    if (!userid || !username || !content){
+      throw Error('Invalid Request Body')
+    }
     const data = {
       postId: uuid(),
-      userId: requestJSON.userId,
-      userName: requestJSON.userName,
+      userId: requestJSON.userid,
+      userName: requestJSON.username,
       date: new Date().getTime(),
       content: requestJSON.content,
       comments: 0,
@@ -21,19 +32,19 @@ const createPost = async (event, context) => {
     };
     const createResult = await dynamo.send(new PutItemCommand(params));
 
-    const body = {
+    response.body = JSON.stringify({
+      status: "success",
       message: "Successfully created post.",
       data,
-    };
-    return body;
+    });
   } catch (err) {
-
-    const response = {
-      statusCode: 500,
-      errors: 'failed to create post',
-    }
-    context.fail(JSON.stringify(response))
+    response.statusCode = 500;
+    response.body = JSON.stringify({
+      status: "fail",
+      message: err
+    });
   }
+  return response;
 };
 
 module.exports = { createPost };
