@@ -23,7 +23,7 @@ const getPost = async (event, context) => {
       }),
     };
 
-    const { Items } = await dynamo.send(new QueryCommand(params));
+    // const { Items } = await dynamo.send(new QueryCommand(params));
     // data = Items.map((item) => unmarshall(item));
     // data = data.sort(sortByDate);
 
@@ -33,7 +33,7 @@ const getPost = async (event, context) => {
     //   result: data.length,
     //   data
     // });
-    return Items;
+    return params;
     // const res = await dynamo.send(new QueryCommand(params));
 
     // console.log(res);
