@@ -20,7 +20,6 @@ const getAllPosts = async () => {
     response.statusCode = 200;
     response.body = JSON.stringify({
       message: "success",
-      result: data.length,
       data
     });
     return data;
