@@ -36,7 +36,7 @@ functions:
           - "dynamodb:Query"
         Resource: 
           - !GetAtt PostsTable.Arn
-          - !GetAtt PostsTable.Arn/index
+          - arn:aws:dynamodb:us-east-1:641705050271:table/post-table-dev/index/*
 
   createPost:
     handler: lambdas/createPost.createPost
