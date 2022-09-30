@@ -29,7 +29,7 @@ functions:
           path: posts/{userId}
           method: GET
           cors: true
-          integration: lambda       
+                
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -71,7 +71,7 @@ functions:
           path: post/{postId}/{userId}
           method: PUT
           cors: true
-          integration: lambda       
+                
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -88,7 +88,7 @@ functions:
           path: post/{postId}/{userId}
           method: DELETE
           cors: true
-          integration: lambda          
+                   
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -105,7 +105,7 @@ functions:
           path: posts
           method: GET
           cors: true
-          integration: lambda       
+                
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -122,7 +122,7 @@ functions:
           path: comment
           method: POST
           cors: true
-          integration: lambda        
+                 
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -139,7 +139,7 @@ functions:
           path: comment/{postId}
           method: GET
           cors: true
-          integration: lambda       
+                
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -156,7 +156,7 @@ functions:
           path: comment/{postId}/{commentId}
           method: DELETE
           cors: true
-          integration: lambda          
+                   
     iamRoleStatements:
       - Effect: "Allow"
         Action:
