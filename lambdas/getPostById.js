@@ -20,6 +20,7 @@ const getPost = async (event) => {
   };
 
   try {
+    let data;
     const params = {
       TableName: process.env.DYNAMODB_TABLE_NAME,
       IndexName: "userId-posId-index",
@@ -31,14 +32,14 @@ const getPost = async (event) => {
     };
 
     const { Items } = await dynamo.send(new QueryCommand(params));
-    const data = Items.map((item) => unmarshall(item));
-    data = JSON.stringify(data.sort(sortByDate));
+    data = Items.map((item) => unmarshall(item));
+    data = data.sort(sortByDate);
     response.body = JSON.stringify({
       message: "success",
       result: data.length,
       data
     });
-    
+
   } catch (e) {
     console.error(e);
     response.statusCode = 500;
