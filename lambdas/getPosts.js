@@ -22,7 +22,7 @@ const getAllPosts = async () => {
       message: "success",
       data
     });
-    return data;
+    return response;
     
   } catch (err) {
     
