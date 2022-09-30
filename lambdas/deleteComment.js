@@ -23,17 +23,17 @@ const deleteComment = async (event) => {
         }),
       };
       const deleteResult = await db.send(new DeleteItemCommand(params));
-      if (deleteResult.ConsumedCapacity) {
-        response.body = JSON.stringify({
-          status: "fail",
-          message: "Comment does not exist !",
-        });
-      } else {
+    //   if (deleteResult.ConsumedCapacity) {
+    //     response.body = JSON.stringify({
+    //       status: "fail",
+    //       message: "Comment does not exist !",
+    //     });
+    //   } else {
         response.body = JSON.stringify({
           message: "Successfully deleted post.",
           deleteResult,
         });
-      }
+      
     } catch (e) {
       console.error(e);
       response.statusCode = 500;

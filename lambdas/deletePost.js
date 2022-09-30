@@ -23,16 +23,16 @@ const deletePost = async (event) => {
     };
     const deleteResult = await dynamo.send(new DeleteItemCommand(params));
 
-    if (deleteResult.ConsumedCapacity){
-      response.body = JSON.stringify({
-          status: 'fail',
-          message: "Post does not exist !",
-      });
-  }else{
+  //   if (deleteResult.ConsumedCapacity){
+  //     response.body = JSON.stringify({
+  //         status: 'fail',
+  //         message: "Post does not exist !",
+  //     });
+  // }else{
     response.body = JSON.stringify({
       message: "Successfully deleted post.",
       deleteResult,
-    })}
+    })
   } catch (e) {
     console.error(e);
     response.statusCode = 500;
