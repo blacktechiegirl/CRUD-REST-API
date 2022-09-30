@@ -34,7 +34,9 @@ functions:
       - Effect: "Allow"
         Action:
           - "dynamodb:Query"
-        Resource: !GetAtt PostsTable.Arn
+        Resource: 
+          - !GetAtt PostsTable.Arn
+          - !GetAtt [PostsTable.Arn]/index
 
   createPost:
     handler: lambdas/createPost.createPost

@@ -32,7 +32,13 @@ const getPost = async (event) => {
 
     const { Items } = await dynamo.send(new QueryCommand(params));
     const data = Items.map((item) => unmarshall(item));
-    response.body = JSON.stringify(data.sort(sortByDate));
+    data = JSON.stringify(data.sort(sortByDate));
+    response.body = JSON.stringify({
+      message: "success",
+      result: data.length,
+      data
+    });
+    
   } catch (e) {
     console.error(e);
     response.statusCode = 500;
