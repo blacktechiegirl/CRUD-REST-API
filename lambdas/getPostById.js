@@ -24,16 +24,16 @@ const getPost = async (event, context) => {
     };
 
     const { Items } = await dynamo.send(new QueryCommand(params));
-    data = Items.map((item) => unmarshall(item));
-    data = data.sort(sortByDate);
+    // data = Items.map((item) => unmarshall(item));
+    // data = data.sort(sortByDate);
 
-    response.statusCode = 200;
-    response.body = JSON.stringify({
-      message: "success",
-      result: data.length,
-      data
-    });
-    return response;
+    // response.statusCode = 200;
+    // response.body = JSON.stringify({
+    //   message: "success",
+    //   result: data.length,
+    //   data
+    // });
+    return Items;
     // const res = await dynamo.send(new QueryCommand(params));
 
     // console.log(res);
