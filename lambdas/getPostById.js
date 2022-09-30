@@ -13,7 +13,7 @@ const getPost = async (event, context) => {
   try {
     const params = {
       TableName: process.env.DYNAMODB_TABLE_NAME,
-      IndexName: "userId-postId-index",
+      IndexName: "userId-posId-index",
       ConsistentRead: false,
       KeyConditionExpression: "userId = :userId",
       ExpressionAttributeValues: marshall({

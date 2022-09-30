@@ -186,7 +186,7 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         GlobalSecondaryIndexes:
-        - IndexName: userId-postId-index
+        - IndexName: userId-posId-index
           KeySchema:
             - AttributeName: userId
               KeyType: HASH
