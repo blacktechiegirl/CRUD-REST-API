@@ -17,10 +17,12 @@ const getAllPosts = async () => {
     const { Items } = await dynamo.send(new ScanCommand(params));
     data = Items.map((item) => unmarshall(item));
     data = data.sort(sortByDate);
-    response.statusCode(200).json({
-      message: 'success',
+    response.statusCode = 200;
+    response.body = JSON.stringify({
+      message: "success",
+      result: data.length,
       data
-    })
+    });
     return data;
     
   } catch (err) {
