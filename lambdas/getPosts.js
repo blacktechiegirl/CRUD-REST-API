@@ -10,16 +10,21 @@ function sortByDate(a, b) {
 }
 
 const getAllPosts = async () => {
+  const response = {};
   try {
     let data;
     const params = { TableName: process.env.DYNAMODB_TABLE_NAME };
     const { Items } = await dynamo.send(new ScanCommand(params));
     data = Items.map((item) => unmarshall(item));
     data = data.sort(sortByDate);
+    response.statusCode(200).json({
+      message: 'success',
+      data
+    })
     return data;
     
   } catch (err) {
-    const response = {};
+    
     response.statusCode = 500;
     response.body = JSON.stringify({
       message: "Failed to fetch post.",
