@@ -9,49 +9,41 @@ function sortByDate(a, b) {
   } else return 1;
 }
 
-const getPost = async (event, context) => {
-  const response = {};
+const getPost = async (event) => {
+  const response = {
+    statusCode: 200,
+    headers: {
+      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "*",
+    },
+  };
+
   try {
-    // let data;
-    // const params = {
-    //   TableName: process.env.DYNAMODB_TABLE_NAME,
-    //   IndexName: "userId-posId-index",
-    //   ConsistentRead: false,
-    //   KeyConditionExpression: "userId = :userId",
-    //   ExpressionAttributeValues: marshall({
-    //     ":userId": event.path.userId,
-    //   }),
-    // };
+    const params = {
+      TableName: process.env.DYNAMODB_TABLE_NAME,
+      IndexName: "userId-posId-index",
+      ConsistentRead: false,
+      KeyConditionExpression: "userId = :userId",
+      ExpressionAttributeValues: marshall({
+        ":userId": event.pathParameters.userId,
+      }),
+    };
 
-    // const { Items } = await dynamo.send(new QueryCommand(params));
-    // data = Items.map((item) => unmarshall(item));
-    // data = data.sort(sortByDate);
-
-    // response.statusCode = 200;
-    // response.body = JSON.stringify({
-    //   message: "success",
-    //   result: data.length,
-    //   data
-    // });
-    return event.path;
-    // const res = await dynamo.send(new QueryCommand(params));
-
-    // console.log(res);
-    // response.body = JSON.stringify({
-    //     message: "Successfull get request",
-    //     data: (Item) ? unmarshall(Item) : {},
-    //     rawData: Item,
-    // });
+    const { Items } = await dynamo.send(new QueryCommand(params));
+    const data = Items.map((item) => unmarshall(item));
+    response.body = JSON.stringify(data.sort(sortByDate));
   } catch (e) {
+    console.error(e);
     response.statusCode = 500;
     response.body = JSON.stringify({
-      message: "Failed to fetch post.",
+      message: "Failed to get post.",
       errorMsg: e.message,
       errorStack: e.stack,
     });
-    return response;
-
   }
+
+  return response;
 };
 
 module.exports = { getPost };
