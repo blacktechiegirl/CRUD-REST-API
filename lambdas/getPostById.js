@@ -12,16 +12,16 @@ function sortByDate(a, b) {
 const getPost = async (event, context) => {
   const response = {};
   try {
-    let data;
-    const params = {
-      TableName: process.env.DYNAMODB_TABLE_NAME,
-      IndexName: "userId-posId-index",
-      ConsistentRead: false,
-      KeyConditionExpression: "userId = :userId",
-      ExpressionAttributeValues: marshall({
-        ":userId": event.path.userId,
-      }),
-    };
+    // let data;
+    // const params = {
+    //   TableName: process.env.DYNAMODB_TABLE_NAME,
+    //   IndexName: "userId-posId-index",
+    //   ConsistentRead: false,
+    //   KeyConditionExpression: "userId = :userId",
+    //   ExpressionAttributeValues: marshall({
+    //     ":userId": event.path.userId,
+    //   }),
+    // };
 
     // const { Items } = await dynamo.send(new QueryCommand(params));
     // data = Items.map((item) => unmarshall(item));
@@ -33,7 +33,7 @@ const getPost = async (event, context) => {
     //   result: data.length,
     //   data
     // });
-    return params;
+    return event.path;
     // const res = await dynamo.send(new QueryCommand(params));
 
     // console.log(res);
