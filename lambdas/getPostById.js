@@ -42,7 +42,6 @@ const getPost = async (event, context) => {
     //     data: (Item) ? unmarshall(Item) : {},
     //     rawData: Item,
     // });
-    return body;
   } catch (e) {
     response.statusCode = 500;
     response.body = JSON.stringify({
@@ -50,6 +49,8 @@ const getPost = async (event, context) => {
       errorMsg: e.message,
       errorStack: e.stack,
     });
+    return response;
+
   }
 };
 
