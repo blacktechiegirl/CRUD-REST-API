@@ -10,43 +10,44 @@ function sortByDate (a,b){
     }else return 1
   }
 
-const getComment = async (event) => {
-    const response = { 
-        statusCode: 200,
-        headers: {
-            "Access-Control-Allow-Headers" : "Content-Type",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "*"
-        },
-     };
-    const params = {
-        TableName: process.env.DYNAMODB_COMMENT_TABLE,
-        KeyConditionExpression: "postId = :postId",
-            ExpressionAttributeValues: marshall({
-                ":postId": event.pathParameters.postId
-            })
+  const getComment = async (event) => {
+    const response = {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "*",
+      },
     };
-
-    try {        
-        const { Items } = await db.send(new QueryCommand(params));
-        const data = Items.map((item) => unmarshall(item));
-        response.body = JSON.stringify(data.sort(sortByDate));
-        // response.body = JSON.stringify({
-        //     message: "Successfully retrieved all comments.",
-        //     data: Items.length ==! 0? Items.map((item) => unmarshall(item)) : [],
-        //     Items,
-        // });
+    const params = {
+      TableName: process.env.DYNAMODB_COMMENT_TABLE,
+      KeyConditionExpression: "postId = :postId",
+      ExpressionAttributeValues: marshall({
+        ":postId": event.pathParameters.postId,
+      }),
+    };
+  
+    try {
+      let data;
+      const { Items } = await db.send(new QueryCommand(params));
+      data = Items.map((item) => unmarshall(item));
+      data = data.sort(sortByDate);
+      response.body = JSON.stringify({
+        status: "success",
+        result: data.length,
+        data,
+      });
     } catch (e) {
-        console.error(e);
-        response.statusCode = 500;
-        response.body = JSON.stringify({
-            message: "Failed to retrieve comments.",
-            errorMsg: e.message,
-            errorStack: e.stack,
-        });
+      console.error(e);
+      response.statusCode = 500;
+      response.body = JSON.stringify({
+        message: "Failed to retrieve comments.",
+        errorMsg: e.message,
+        errorStack: e.stack,
+      });
     }
-
+  
     return response;
-};
-
-module.exports = { getComment};
+  };
+  
+  module.exports = { getComment };

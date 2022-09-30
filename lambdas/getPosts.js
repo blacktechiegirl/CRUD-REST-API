@@ -10,30 +10,40 @@ function sortByDate(a, b) {
 }
 
 const getAllPosts = async () => {
-  const response = {};
+  const response = { 
+      statusCode: 200,
+      headers: {
+          "Access-Control-Allow-Headers" : "Content-Type",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "*"
+      },
+   };
+
   try {
-    let data;
-    const params = { TableName: process.env.DYNAMODB_TABLE_NAME };
-    const { Items } = await dynamo.send(new ScanCommand(params));
-    data = Items.map((item) => unmarshall(item));
-    data = data.sort(sortByDate);
-    response.statusCode = 200;
-    response.body = JSON.stringify({
-      message: "success",
-      result: data.length,
-      data
-    });
-    return response;
-    
-  } catch (err) {
-    
-    response.statusCode = 500;
-    response.body = JSON.stringify({
-      message: "Failed to fetch post.",
-      errorMsg: e.message,
-      errorStack: e.stack,
-    });
+      let data;
+      const params = {
+          TableName: process.env.DYNAMODB_TABLE_NAME,
+        };
+      const { Items } = await dynamo.send(new ScanCommand(params));
+      data = Items.map((item) => unmarshall(item))
+      data = data.sort(sortByDate)
+      response.body = JSON.stringify({
+          status: "success",
+          result: data.length,
+          data
+      });
+  
+  } catch (e) {
+      console.error(e);
+      response.statusCode = 500;
+      response.body = JSON.stringify({
+          message: "Failed to retrieve posts.",
+          errorMsg: e.message,
+          errorStack: e.stack,
+      });
   }
+
+  return response;
 };
 
-module.exports = { getAllPosts };
+module.exports = { getAllPosts};

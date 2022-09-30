@@ -17,10 +17,10 @@ const createComment = async (event) => {
   try {
     const requestJSON = JSON.parse(event.body);
     const data= {
-        postId: requestJSON.postId,
+        postId: requestJSON.postid,
         commentId: uuid(),
-        userId: requestJSON.userId,
-        userName: requestJSON.userName,
+        userId: requestJSON.userid,
+        userName: requestJSON.username,
         comment: requestJSON.comment,
         date: new Date().getTime(),
     }
@@ -32,7 +32,7 @@ const createComment = async (event) => {
 
     response.body = JSON.stringify({
       message: "Successfully created comment.",
-      createResult,
+      data,
     });
   } catch (e) {
     console.error(e);
@@ -46,5 +46,4 @@ const createComment = async (event) => {
 
   return response;
 };
-
 module.exports = { createComment };

@@ -35,11 +35,10 @@ const getPost = async (event) => {
     data = Items.map((item) => unmarshall(item));
     data = data.sort(sortByDate);
     response.body = JSON.stringify({
-      message: "success",
+      status: "success",
       result: data.length,
-      data
+      data,
     });
-
   } catch (e) {
     console.error(e);
     response.statusCode = 500;
