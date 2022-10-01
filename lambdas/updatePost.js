@@ -21,6 +21,7 @@ const updatePost = async (event) => {
         postId: event.pathParameters.postId,
         userId: event.pathParameters.userId,
       }),
+      ConditionExpression: 'attribute_exists(postId)',
       UpdateExpression: "SET #attrName = :attrValue",
       ExpressionAttributeNames: {
         "#attrName":  "content"

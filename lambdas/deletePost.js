@@ -20,6 +20,7 @@ const deletePost = async (event) => {
         postId: event.pathParameters.postId,
         userId: event.pathParameters.userId,
       }),
+      ConditionExpression: 'attribute_exists(postId)'
     };
     const deleteResult = await dynamo.send(new DeleteItemCommand(params));
 

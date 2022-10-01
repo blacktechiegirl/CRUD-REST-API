@@ -21,6 +21,7 @@ const deleteComment = async (event) => {
           postId: event.pathParameters.postId,
           commentId: event.pathParameters.commentId,
         }),
+        ConditionExpression: 'attribute_exists(postId)',
       };
       const deleteResult = await db.send(new DeleteItemCommand(params));
     //   if (deleteResult.ConsumedCapacity) {
