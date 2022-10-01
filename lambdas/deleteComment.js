@@ -39,7 +39,7 @@ const deleteComment = async (event) => {
       console.error(e);
       response.statusCode = 500;
       response.body = JSON.stringify({
-        message: "Failed to delete post.",
+        message: "Failed to delete comment.",
         errorMsg: e.message,
         errorStack: e.stack,
       });
