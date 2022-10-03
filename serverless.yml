@@ -30,9 +30,7 @@ functions:
           method: GET
           cors: true
           integration: lambda
-          authorizer:
-            name: authorizer
-            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_ypXfPFqkP
+         
           
                 
     iamRoleStatements:
@@ -54,9 +52,7 @@ functions:
           method: POST
           cors: true
           integration: lambda
-          authorizer:
-            name: authorizer
-            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_ypXfPFqkP      
+               
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -74,9 +70,7 @@ functions:
           method: PUT
           cors: true
           integration: lambda
-          authorizer:
-            name: authorizer
-            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_ypXfPFqkP
+         
                 
     iamRoleStatements:
       - Effect: "Allow"
@@ -95,9 +89,7 @@ functions:
           method: DELETE
           cors: true
           integration: lambda
-          authorizer:
-            name: authorizer
-            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_ypXfPFqkP
+         
                    
     iamRoleStatements:
       - Effect: "Allow"
@@ -116,9 +108,7 @@ functions:
           method: GET
           cors: true
           integration: lambda
-          authorizer:
-            name: authorizer
-            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_ypXfPFqkP
+         
                 
     iamRoleStatements:
       - Effect: "Allow"
@@ -137,9 +127,7 @@ functions:
           method: POST
           cors: true
           integration: lambda
-          authorizer:
-            name: authorizer
-            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_ypXfPFqkP
+         
                  
     iamRoleStatements:
       - Effect: "Allow"
@@ -158,9 +146,7 @@ functions:
           method: GET
           cors: true
           integration: lambda
-          authorizer:
-            name: authorizer
-            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_ypXfPFqkP
+         
                 
     iamRoleStatements:
       - Effect: "Allow"
@@ -179,9 +165,7 @@ functions:
           method: DELETE
           cors: true
           integration: lambda
-          authorizer:
-            name: authorizer
-            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_ypXfPFqkP
+         
                    
     iamRoleStatements:
       - Effect: "Allow"
