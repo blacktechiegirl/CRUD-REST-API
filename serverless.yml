@@ -29,6 +29,7 @@ functions:
           path: posts/{userId}
           method: GET
           cors: true
+          integration: lambda
           authorizer:
             name: authorizer
             arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_ypXfPFqkP
@@ -52,6 +53,7 @@ functions:
           path: post
           method: POST
           cors: true
+          integration: lambda
           authorizer:
             name: authorizer
             arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_ypXfPFqkP      
@@ -71,6 +73,7 @@ functions:
           path: post/{postId}/{userId}
           method: PUT
           cors: true
+          integration: lambda
           authorizer:
             name: authorizer
             arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_ypXfPFqkP
@@ -91,6 +94,7 @@ functions:
           path: post/{postId}/{userId}
           method: DELETE
           cors: true
+          integration: lambda
           authorizer:
             name: authorizer
             arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_ypXfPFqkP
@@ -111,6 +115,7 @@ functions:
           path: posts
           method: GET
           cors: true
+          integration: lambda
           authorizer:
             name: authorizer
             arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_ypXfPFqkP
@@ -131,6 +136,7 @@ functions:
           path: comment
           method: POST
           cors: true
+          integration: lambda
           authorizer:
             name: authorizer
             arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_ypXfPFqkP
@@ -151,6 +157,7 @@ functions:
           path: comment/{postId}
           method: GET
           cors: true
+          integration: lambda
           authorizer:
             name: authorizer
             arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_ypXfPFqkP
@@ -171,6 +178,7 @@ functions:
           path: comment/{postId}/{commentId}
           method: DELETE
           cors: true
+          integration: lambda
           authorizer:
             name: authorizer
             arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_ypXfPFqkP
