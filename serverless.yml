@@ -29,6 +29,10 @@ functions:
           path: posts/{userId}
           method: GET
           cors: true
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_ypXfPFqkP
+          
                 
     iamRoleStatements:
       - Effect: "Allow"
@@ -48,15 +52,9 @@ functions:
           path: post
           method: POST
           cors: true
-          integration: lambda
-          response:
-            statusCodes:
-              500:
-                pattern: '.*"statusCode":500,.*' # JSON response
-                template:
-                  application/json: $input.path("$.errorMessage") # JSON return object
-                headers:
-                  Content-Type: "'application/json+hal'"        
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_ypXfPFqkP      
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -73,6 +71,9 @@ functions:
           path: post/{postId}/{userId}
           method: PUT
           cors: true
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_ypXfPFqkP
                 
     iamRoleStatements:
       - Effect: "Allow"
@@ -90,6 +91,9 @@ functions:
           path: post/{postId}/{userId}
           method: DELETE
           cors: true
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_ypXfPFqkP
                    
     iamRoleStatements:
       - Effect: "Allow"
@@ -107,6 +111,9 @@ functions:
           path: posts
           method: GET
           cors: true
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_ypXfPFqkP
                 
     iamRoleStatements:
       - Effect: "Allow"
@@ -124,6 +131,9 @@ functions:
           path: comment
           method: POST
           cors: true
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_ypXfPFqkP
                  
     iamRoleStatements:
       - Effect: "Allow"
@@ -141,6 +151,9 @@ functions:
           path: comment/{postId}
           method: GET
           cors: true
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_ypXfPFqkP
                 
     iamRoleStatements:
       - Effect: "Allow"
@@ -158,6 +171,9 @@ functions:
           path: comment/{postId}/{commentId}
           method: DELETE
           cors: true
+          authorizer:
+            name: authorizer
+            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_ypXfPFqkP
                    
     iamRoleStatements:
       - Effect: "Allow"
