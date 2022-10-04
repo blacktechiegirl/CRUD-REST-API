@@ -31,7 +31,7 @@ functions:
           cors: true
           authorizer:
             name: authorizer
-            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_1170uYVMt
+            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_wEs0v6sha
           
                 
     iamRoleStatements:
@@ -54,7 +54,7 @@ functions:
           cors: true
           authorizer:
             name: authorizer
-            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_1170uYVMt
+            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_wEs0v6sha
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -73,7 +73,7 @@ functions:
           cors: true
           authorizer:
             name: authorizer
-            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_1170uYVMt
+            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_wEs0v6sha
                 
     iamRoleStatements:
       - Effect: "Allow"
@@ -93,7 +93,7 @@ functions:
           cors: true
           authorizer:
             name: authorizer
-            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_1170uYVMt
+            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_wEs0v6sha
                    
     iamRoleStatements:
       - Effect: "Allow"
@@ -113,7 +113,7 @@ functions:
           cors: true
           authorizer:
             name: authorizer
-            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_1170uYVMt
+            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_wEs0v6sha
                 
     iamRoleStatements:
       - Effect: "Allow"
@@ -133,7 +133,7 @@ functions:
           cors: true
           authorizer:
             name: authorizer
-            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_1170uYVMt
+            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_wEs0v6sha
                  
     iamRoleStatements:
       - Effect: "Allow"
@@ -153,7 +153,7 @@ functions:
           cors: true
           authorizer:
             name: authorizer
-            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_1170uYVMt
+            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_wEs0v6sha
                 
     iamRoleStatements:
       - Effect: "Allow"
@@ -173,7 +173,7 @@ functions:
           cors: true
           authorizer:
             name: authorizer
-            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_1170uYVMt
+            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_wEs0v6sha
                    
     iamRoleStatements:
       - Effect: "Allow"
