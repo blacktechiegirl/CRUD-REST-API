@@ -54,7 +54,7 @@ functions:
           cors: true
           authorizer:
             name: authorizer
-            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_1170uYVMt      
+            arn: arn:aws:cognito-idp:us-east-1:641705050271:userpool/us-east-1_1170uYVMt
     iamRoleStatements:
       - Effect: "Allow"
         Action:
